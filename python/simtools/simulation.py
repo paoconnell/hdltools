@@ -7,9 +7,13 @@ class Simulation(object):
     def __init__(self):
         self.ui = VUnit.from_argv()
         self.lib = self.ui.add_library("lib")
+        self.include_dirs = []
+
+    def add_include_dir(self, dir):
+        self.include_dirs.append(dir)
 
     def add_source_files(self, source_files):
-        self.lib.add_source_files(source_files)
+        self.lib.add_source_files(source_files, include_dirs=self.include_dirs)
 
     def add_config(self, testbench, name, test_case=None, params=None, pre_config=None):
         tbs = self.lib.get_test_benches("*"+testbench)

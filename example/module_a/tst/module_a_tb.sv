@@ -1,4 +1,5 @@
 `include "vunit_defines.svh"
+`include "example_include.svh"
 
 module module_a_tb;
   `TEST_SUITE begin

@@ -10,6 +10,7 @@ def generate_input(params):
 
 root = os.path.dirname(__file__)
 sim = simtools.Simulation()
+sim.add_include_dir(os.path.join(root, "..", "include"))
 sim.add_source_files(os.path.join(root, "tst", "*.sv"))
 
 params = {

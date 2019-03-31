@@ -1,0 +1,1 @@
+`define EXAMPLE_CONSTANT 10
