@@ -1,6 +1,6 @@
 import os
 
-import simtools
+import hdltools
 
 def generate_input(params):
     def func(output_path):
@@ -9,7 +9,7 @@ def generate_input(params):
     return func
 
 root = os.path.dirname(__file__)
-sim = simtools.Simulation()
+sim = hdltools.Simulation()
 sim.add_include_dir(os.path.join(root, "..", "include"))
 sim.add_source_files(os.path.join(root, "tst", "*.sv"))
 
