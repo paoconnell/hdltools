@@ -8,9 +8,15 @@ class Simulation(object):
         self.ui = VUnit.from_argv()
         self.lib = self.ui.add_library("lib")
         self.include_dirs = []
+        self.modelsim_flags = []
 
     def add_include_dir(self, dir):
         self.include_dirs.append(dir)
+
+    def use_unisim_libraries(self):
+        self.lib.add_source_file(os.path.join(os.environ["VUNIT_VIVADO_PATH"], "..", "data", "verilog", "src", "glbl.v"))
+        self.ui.add_external_library("unisims_ver", os.path.join(os.environ["VUNIT_XILINX_LIBRARIES_PATH"], "unisims_ver"))
+        self.modelsim_flags.extend(["lib.glbl"])
 
     def add_source_files(self, source_files):
         self.lib.add_source_files(source_files, include_dirs=self.include_dirs)
@@ -26,7 +32,7 @@ class Simulation(object):
             tb = tb.test(test_case)
         if params is not None:
             name = name + "-" + "_".join(str(key)+"="+str(val) for key, val in params.items())
-        tb.add_config(name, pre_config=pre_config)
+        tb.add_config(name, pre_config=pre_config, sim_options={"modelsim.vsim_flags": self.modelsim_flags})
 
     def run(self, coverage=False):
         self.ui.main()
