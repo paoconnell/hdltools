@@ -32,7 +32,8 @@ class Simulation(object):
             tb = tb.test(test_case)
         if params is not None:
             name = name + "-" + "_".join(str(key)+"="+str(val) for key, val in params.items())
-        tb.add_config(name, pre_config=pre_config, sim_options={"modelsim.vsim_flags": self.modelsim_flags})
+        tb.add_config(name, pre_config=pre_config)
 
     def run(self, coverage=False):
+        self.ui.set_sim_option("modelsim.vsim_flags", self.modelsim_flags)
         self.ui.main()
